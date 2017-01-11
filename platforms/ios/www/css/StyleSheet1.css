@@ -1,0 +1,99 @@
+﻿#branding{
+background:url(images/header.png) no-repeat;
+width:322px;
+height:165px;
+text-indent:-999px;
+font-size:0px;
+margin:-10px auto 0 auto;
+border:10px solid #494949;
+border-radius:10px;
+
+}
+
+#sub-head{
+background:url(images/sub_header.png) no-repeat;
+width:338px;
+height:80px;
+text-indent:-999px;
+font-size:0px;
+margin:inherit;
+border:2px solid #494949;
+border-radius:2px;
+align-content:center;
+}
+.readonly-state {
+    display: inline;
+    background: #eee !important;
+    font-weight: bold !important;
+    color: #2F3E46 !important;
+    text-shadow: 0 /*{c-bup-shadow-x}*/ 1px /*{c-bup-shadow-y}*/ 0 /*{c-bup-shadow-radius}*/ #ffffff /*{c-bup-shadow-color}*/ !important;
+    background-image: -webkit-gradient(linear, left top, left bottom, from( #ffffff /*{c-bup-background-start}*/ ), to( #f1f1f1 /*{c-bup-background-end}*/ )) !important; /* Saf4+, Chrome */
+    background-image: -webkit-linear-gradient( #ffffff /*{c-bup-background-start}*/, #f1f1f1 /*{c-bup-background-end}*/ ) !important; /* Chrome 10+, Saf5.1+ */
+    background-image: -moz-linear-gradient( #ffffff /*{c-bup-background-start}*/, #f1f1f1 /*{c-bup-background-end}*/ ) !important; /* FF3.6 */
+    background-image: -ms-linear-gradient( #ffffff /*{c-bup-background-start}*/, #f1f1f1 /*{c-bup-background-end}*/ ) !important; /* IE10 */
+    background-image: -o-linear-gradient( #ffffff /*{c-bup-background-start}*/, #f1f1f1 /*{c-bup-background-end}*/ ) !important; /* Opera 11.10+ */
+}
+    #rate {
+    border:1px solid #494949;
+    border-radius:10px;
+    width:100px;
+   
+   font-family:Cambria, Cochin, Georgia, Times, Times New Roman, serif;
+  
+   font-size:16px;
+   
+       }
+
+    #info,
+#contact_infos {
+color:rgb(63, 41, 39);
+font-size:14px;
+}
+#info h1,
+#contact_infos h2,
+#notation h2{
+color:rgb(63, 41, 39);
+font-size:18px;
+margin:0 auto 5px auto;
+}
+
+/*info page*/
+#info p,
+#info ul,
+#contact_infos p{
+margin:2px auto 5px auto;
+}
+#info ul{
+padding:0 0 0 10px;
+}
+#info ul  li{
+list-style-type:square;
+margin-left:5px;
+}
+
+#info .ui-block-b .ui-btn {
+font-size:12px;
+}
+#info .ui-block-b .ui-btn-inner{
+padding:5px;
+}
+
+#contact_buttons a{
+color:rgb(63, 41, 39);
+}
+
+.ui-icon-maps {
+background: rgb(63, 41, 39) url(images/maps.png) no-repeat;
+}
+.ui-icon-tel{
+background: rgb(63, 41, 39) url(images/phone.png) no-repeat;
+}
+#backhead{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    padding: 5px 0 10px;
+    overflow:auto; zoom: 1;
+    
+}

@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+                
+                <title>Find Me Food</title>
+                <link rel="stylesheet" href="css/jquery.mobile-1.4.3.css">
+                    <link rel="stylesheet" href="css/StyleSheet1.css">
+                        <link rel="stylesheet" href="css/jquery.mobile.structure-1.0.1.css" />
+                        <link rel="stylesheet" href="css/custom.css" />
+                        <script src="js/jquery-2.1.1.js"></script>
+                        <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+                        <script src="js/jquery.mobile-1.4.3.js"></script>
+                        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1D8hWUQOjrnj3Z7O6Ja3GbV64LVOajOM"></script>
+                        <script type="text/javascript" charset="utf-8">
+                            
+                            var pictureSource;   // picture source
+                            var destinationType; // sets the format of returned value
+                            
+                            // Wait for device API libraries to load
+                            //
+                            document.addEventListener("deviceready",onDeviceReady,false);
+                            document.addEventListener("deviceready", initializeMap, false);
+                            
+                            
+                            // device APIs are available
+                            //
+                            function onDeviceReady() {
+                                pictureSource=navigator.camera.PictureSourceType;
+                                destinationType=navigator.camera.DestinationType;
+                            }
+                        
+                        // Called when a photo is successfully retrieved
+                        //
+                        function onPhotoDataSuccess(imageData) {
+                            // Uncomment to view the base64-encoded image data
+                            // console.log(imageData);
+                            
+                            // Get image handle
+                            //
+                            var smallImage = document.getElementById('smallImage');
+                            
+                            // Unhide image elements
+                            //
+                            smallImage.style.display = 'block';
+                            
+                            // Show the captured photo
+                            // The in-line CSS rules are used to resize the image
+                            //
+                            smallImage.src = "data:image/jpeg;base64," + imageData;
+                        }
+                        
+                        // Called when a photo is successfully retrieved
+                        //
+                        function onPhotoURISuccess(imageURI) {
+                            // Uncomment to view the image file URI
+                            // console.log(imageURI);
+                            
+                            // Get image handle
+                            //
+                            var largeImage = document.getElementById('largeImage');
+                            
+                            // Unhide image elements
+                            //
+                            largeImage.style.display = 'block';
+                            
+                            // Show the captured photo
+                            // The in-line CSS rules are used to resize the image
+                            //
+                            largeImage.src = imageURI;
+                        }
+                        
+                        // A button will call this function
+                        //
+                        function capturePhoto() {
+                            // Take picture using device camera and retrieve image as base64-encoded string
+                            navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50,
+                                                        destinationType: destinationType.DATA_URL });
+                        }
+                        
+                        // A button will call this function
+                        //
+                        function capturePhotoEdit() {
+                            // Take picture using device camera, allow edit, and retrieve image as base64-encoded string
+                            navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 20, allowEdit: true,
+                                                        destinationType: destinationType.DATA_URL });
+                        }
+                        
+                        // A button will call this function
+                        //
+                        function getPhoto(source) {
+                            // Retrieve image file location from specified source
+                            navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 50,
+                                                        destinationType: destinationType.FILE_URI,
+                                                        sourceType: source });
+                        }
+                        
+                        // Called if something bad happens.
+                        //
+                        function onFail(message) {
+                            alert('Failed because: ' + message);
+                        }
+                        
+                        function initializeMap() {
+                            var mapOptions = {
+                                center: new google.maps.LatLng(43.069452, -89.411373),
+                                zoom: 11,
+                                mapTypeId: google.maps.MapTypeId.ROADMAP
+                            };
+                            var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+                            
+                            
+                            var marker = new google.maps.Marker({
+                                                                position: new google.maps.LatLng(43.069452, -89.411373),
+                                                                map: map,
+                                                                title: "This is a marker!",
+                                                                animation: google.maps.Animation.DROP
+                                                                });
+                        }
+                        </script>
+                        
+                        
+                        
+                        
+                        </head>
+    <body>
+        <div data-role="page"  data-theme="c">
+            <div data-role="header">
+                <a href="#" onclick="window.history.go(-1); return false;" class="ui-btn  ui-btn-icon-left ui-corner-all">Back</a>
+                <h1> Back </h1>
+                
+            </div>
+            <div data-role="content">
+                <div id="sub-head" data-position="fixed">
+                    Find Me food
+                </div>
+                <ul data-role="listview"  data-split-theme="a" data-inset="true" data-filter="true">
+                    <li>
+                        <a class="readonly-state" href="#Sapori">
+                            <img src="img\italian\img1.jpg">
+                                <h2>Sapori Trattoria</h2>
+                                <p> <span id="rate"> 4 Star</span> </p>
+                                </a>
+                    </li>
+                    <li>
+                        <a class="readonly-state" href="#Salvatore">
+                            <img src="img\italian\img2.jpg">
+                                <h2>Salvatore’s Cucina Italiana</h2>
+                                <p> <span id="rate"> 4.5 Star</span> </p>
+                                </a>
+                    </li>
+                    <li>
+                        <a class="readonly-state" href="#CUCINA">
+                            <img src="img\italian\img3.jpg">
+                                <h2>CUCINA urbana</h2>
+                                <p> <span id="rate"> 4 Star</span> </p>
+                                </a>
+                    </li>
+                    <li>
+                        <a class="readonly-state" href="#Maya">
+                            <img src="img\maxican\img4.png">
+                                <h2>Maya</h2>
+                                <p> <span id="rate"> 4 Star</span> </p>
+                                </a>
+                    </li>
+                    <li>
+                        <a class="readonly-state" href="#Grazie">
+                            <img src="img\maxican\img5.jpg">
+                                <h2>Grazie Italian Restaurant</h2>
+                                <p> <span id="rate"> 4 Star</span> </p>
+                                </a>
+                    </li>
+                    <li>
+                        <a class="readonly-state" href="#Los">
+                            <img src="img\maxican\img6.jpg">
+                                <h2>Los Guachos Taqueria</h2>
+                                <p> <span id="rate"> 3 Star</span> </p>
+                                </a>
+                    </li>
+                    
+                    <li>
+                        <a class="readonly-state" href="#Tacos">
+                            <img src="img\maxican\img7.jpg">
+                                <h2>L’ Patron Tacos</h2>
+                                <p> <span id="rate"> 4.5 Star</span> </p>
+                                </a>
+                    </li>
+                    
+                </ul>
+                
+            </div>
+            
+            
+            
+        </div>
+        
+        <section id="Sapori" data-role="page" data-add-back-btn="true">
+            <div data-role="header">
+                <a href="#" onclick="window.history.go(-1); return false;" class="ui-btn  ui-btn-icon-left ui-corner-all">Back</a>
+                <h1> Back </h1>
+                
+            </div>
+            <div data-role="content">
+                <div class="ui-grid-a" id="info">
+                    <div class="ui-block-a">
+                        <p><img src="img\italian\sub-img1.jpg" /></p>
+                        <p><a href="www.saporitrattoria.net" rel="external" data-role="button"> See our website</a></p>
+                    </div>
+                    <div class="ui-block-b">
+                        <h1> Sapori Trattoria </h1>
+                        <p><strong>2701 N Halsted St</strong></p>
+                        <p><strong>Chicago, IL 60614</strong></p>
+                        <p> Open until 5:00 AM </p>
+                        
+                    </div>
+                    
+                </div>
+                <hr />
+                
+                <div class="ui-grid-a" id="contact_infos">
+                    <div id="map" style="height:40%"></div>
+                    <a href="https://www.google.com/maps/dir/''/sapori+trattoria/data=!4m5!4m4!1m0!1m2!1m1!1s0x880fd30622ad54d5:0xfbfa928ddf6354b7?sa=X&sqi=2&ved=0ahUKEwi50LW2xvHMAhUHRlIKHXMsAIMQ9RcIjQEwCw" data-role="button" data-icon="maps"> Find us on Google Maps </a>
+                    <input type="button" onclick="capturePhoto();" value="Take Photo"/>
+                    
+                    <input type="button" onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);" value="Upload Photo"/>
+                    <img style="display:none;width:100px;height:100px;" id="smallImage" src="" />
+                    <img src="" id="myImage" height="200px" width="200px"/>
+                </div>
+                
+                <hr />
+            </div>
+        </section><!-- /page -->
+        
+        <section id="Salvatore" data-role="page" data-add-back-btn="true">
+            <div data-role="header">
+                <a href="#" onclick="window.history.go(-1); return false;" class="ui-btn  ui-btn-icon-left ui-corner-all">Back</a>
+                <h1> Back </h1>
+                
+            </div>
+            <div data-role="content">
+                <div class="ui-grid-a" id="info">
+                    <div class="ui-block-a">
+                        <p><img src="img\italian\sub-img2.jpg" /></p>
+                        <p><a href="https://www.chipotle.com/" rel="external" data-role="button"> See our website</a></p>
+                    </div>
+                    <div class="ui-block-b">
+                        <h1> Salvatore’s Cucina Italiana </h1>
+                        <p><strong>750 Front St</strong></p>
+                        <p><strong>San Diego, CA 92101</strong></p>
+                        <p> Open until 7:00 PM </p>
+                        
+                    </div>
+                    
+                </div>
+                <hr />
+                
+                <div class="ui-grid-a" id="contact_infos">
+                    <div id="map" style="height:40%"></div>
+                    <a href="https://www.google.com/maps/dir/''/salvatore's+cucina+italiana+san+diego+ca/data=!4m5!4m4!1m0!1m2!1m1!1s0x80d9535634fcbfe9:0xfe68ef4be94ab960?sa=X&ved=0ahUKEwjUndrPxvHMAhUPeFIKHcJiDI8Q9RcIigEwDA" data-role="button" data-icon="maps"> Find us on Google Maps </a>
+                    <input type="button" onclick="capturePhoto();" value="Take Photo"/>
+                    
+                    <input type="button" onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);" value="Upload Photo"/>
+                    <img style="display:none;width:100px;height:100px;" id="smallImage" src="" />
+                    <img src="" id="myImage" height="200px" width="200px"/>
+                </div>
+                
+                <hr />
+            </div>
+        </section>
+        
+        <section id="CUCINA" data-role="page" data-add-back-btn="true">
+            <div data-role="header">
+                <a href="#" onclick="window.history.go(-1); return false;" class="ui-btn  ui-btn-icon-left ui-corner-all">Back</a>
+                <h1> Back </h1>
+                
+            </div>
+            <div data-role="content">
+                <div class="ui-grid-a" id="info">
+                    <div class="ui-block-a">
+                        <p><img src="img\italian\sub-img3.jpg" /></p>
+                        <p><a href="https://www.urbankitchengroup.com/cucina-urbana-bankers-hill/" rel="external" data-role="button"> See our website</a></p>
+                    </div>
+                    <div class="ui-block-b">
+                        <h1> CUCINA urbana </h1>
+                        <p><strong>505 Laurel St</strong></p>
+                        <p><strong>San Diego, CA 92101</strong></p>
+                        <p> Open until 10:00 PM </p>
+                        
+                    </div>
+                    
+                </div>
+                <hr />
+                
+                <div class="ui-grid-a" id="contact_infos">
+                    <div id="map" style="height:40%"></div>
+                    <a href="https://www.google.com/maps/dir/''/cucina+urbana/data=!4m5!4m4!1m0!1m2!1m1!1s0x80d954b98d9f2d23:0x15b24d4e77898087?sa=X&ved=0ahUKEwishO7hxvHMAhUGL1IKHbfZD_MQ9RcIiAEwDA" data-role="button" data-icon="maps"> Find us on Google Maps </a>
+                    <input type="button" onclick="capturePhoto();" value="Take Photo"/>
+                    
+                    <input type="button" onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);" value="Upload Photo"/>
+                    <img style="display:none;width:100px;height:100px;" id="smallImage" src="" />
+                    <img src="" id="myImage" height="200px" width="200px"/>
+                </div>
+                
+                <hr />
+            </div>
+        </section>
+        
+        <section id="Maya" data-role="page" data-add-back-btn="true">
+            <div data-role="header">
+                <a href="#" onclick="window.history.go(-1); return false;" class="ui-btn  ui-btn-icon-left ui-corner-all">Back</a>
+                <h1> Back </h1>
+                
+            </div>
+            <div data-role="content">
+                <div class="ui-grid-a" id="info">
+                    <div class="ui-block-a">
+                        <p><img src="img\maxican\sub-img4.jpg" /></p>
+                        <p><a href="http://www.richardsandoval.com/mayany/" rel="external" data-role="button"> See our website</a></p>
+                    </div>
+                    <div class="ui-block-b">
+                        <h1> Maya </h1>
+                        <p><strong>1191 1st Ave between 64th St  65th St</strong></p>
+                        <p><strong>New York, NY 10065</strong></p>
+                        <p> Open until 10:00 PM </p>
+                        
+                    </div>
+                    
+                </div>
+                <hr />
+                
+                <div class="ui-grid-a" id="contact_infos">
+                    <div id="map" style="height:40%"></div>
+                    <a href="https://www.google.com/maps/dir/''/11040+Rancho+Carmel+Dr,+San+Diego,+CA+92128/@32.9774287,-117.1529106,12z/data=!3m1!4b1!4m8!4m7!1m0!1m5!1m1!1s0x80dbf9f93963abbf:0xe98c96732f08565b!2m2!1d-117.0828704!2d32.9774482" data-role="button" data-icon="maps"> Find us on Google Maps </a>
+                    <input type="button" onclick="capturePhoto();" value="Take Photo"/>
+                    
+                    <input type="button" onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);" value="Upload Photo"/>
+                    <img style="display:none;width:100px;height:100px;" id="smallImage" src="" />
+                    <img src="" id="myImage" height="200px" width="200px"/>
+                </div>
+                
+                <hr />
+            </div>
+        </section>
+        
+        <section id="Taqueria" data-role="page" data-add-back-btn="true">
+            <div data-role="header">
+                <a href="#" onclick="window.history.go(-1); return false;" class="ui-btn  ui-btn-icon-left ui-corner-all">Back</a>
+                <h1> Back </h1>
+                
+            </div>
+            <div data-role="content">
+                <div class="ui-grid-a" id="info">
+                    <div class="ui-block-a">
+                        <p><img src="img\maxican\sub-img5.jpg" /></p>
+                        <p><a href="taqueriaelvecino.com" rel="external" data-role="button"> See our website</a></p>
+                    </div>
+                    <div class="ui-block-b">
+                        <h1> Taqueria el Vecino </h1>
+                        <p><strong>2743 LaVista Rd</strong></p>
+                        <p><strong>Decatur, GA 30033</strong></p>
+                        <p> Open until 10:00 PM </p>
+                        
+                    </div>
+                    
+                </div>
+                <hr />
+                
+                <div class="ui-grid-a" id="contact_infos">
+                    <div id="map" style="height:40%"></div>
+                    <a href="https://www.google.com/maps/dir/''/taqueria+el+vecino/data=!4m5!4m4!1m0!1m2!1m1!1s0x88f507c10592401d:0xca877e6d4f4c1033?sa=X&ved=0ahUKEwjSyYrvxvHMAhUMKFIKHWbsDz8Q9RcIgQEwDQ" data-role="button" data-icon="maps"> Find us on Google Maps </a>
+                    <input type="button" onclick="capturePhoto();" value="Take Photo"/>
+                    
+                    <input type="button" onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);" value="Upload Photo"/>
+                    <img style="display:none;width:100px;height:100px;" id="smallImage" src="" />
+                    <img src="" id="myImage" height="200px" width="200px"/>
+                </div>
+                
+                <hr />
+            </div>
+        </section>
+        
+        <section id="Grazie" data-role="page" data-add-back-btn="true">
+            <div data-role="header">
+                <a href="#" onclick="window.history.go(-1); return false;" class="ui-btn  ui-btn-icon-left ui-corner-all">Back</a>
+                <h1> Back </h1>
+                
+            </div>
+            <div data-role="content">
+                <div class="ui-grid-a" id="info">
+                    <div class="ui-block-a">
+                        <p><img src="img\italian\sub-img6.jpg" /></p>
+                        <p><a href="http://www.graziena.com/" rel="external" data-role="button"> See our website</a></p>
+                    </div>
+                    <div class="ui-block-b">
+                        <h1> Grazie Italian Restaurant </h1>
+                        <p><strong>26 Marshall Street</strong></p>
+                        <p><strong>North Adams, MA 01247</strong></p>
+                        <p> Open until 10:00 PM </p>
+                        
+                    </div>
+                    
+                </div>
+                <hr />
+                
+                <div class="ui-grid-a" id="contact_infos">
+                    <div id="map" style="height:40%"></div>
+                    <a href="https://www.google.com/maps/dir/''/Grazie+Italian+Restaurant/data=!4m5!4m4!1m0!1m2!1m1!1s0x80c3311ed306500d:0x669ac4084afe725a?sa=X&ved=0ahUKEwjs5tf9xvHMAhUMFVIKHd1bD_gQ9RcIgAEwCw" data-role="button" data-icon="maps"> Find us on Google Maps </a>
+                    <input type="button" onclick="capturePhoto();" value="Take Photo"/>
+                    
+                    <input type="button" onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);" value="Upload Photo"/>
+                    <img style="display:none;width:100px;height:100px;" id="smallImage" src="" />
+                    <img src="" id="myImage" height="200px" width="200px"/>
+                </div>
+                
+                <hr />
+            </div>
+        </section>
+        
+        <section id="Tacos" data-role="page" data-add-back-btn="true">
+            <div data-role="header">
+                <a href="#" onclick="window.history.go(-1); return false;" class="ui-btn  ui-btn-icon-left ui-corner-all">Back</a>
+                <h1> Back </h1>
+                
+            </div>
+            <div data-role="content">
+                <div class="ui-grid-a" id="info">
+                    <div class="ui-block-a">
+                        <p><img src="img\maxican\sub-img7.jpg" /></p>
+                        <p><a href="http://www.yelp.com/biz/l-patron-tacos-chicago?osq=mexican+food" rel="external" data-role="button"> See our website</a></p>
+                    </div>
+                    <div class="ui-block-b">
+                        <h1> L’ Patron Tacos </h1>
+                        <p><strong>2815 W Diversey Ave</strong></p>
+                        <p><strong>Chicago, IL 60647</strong></p>
+                        <p> Open until 10:00 PM </p>
+                        
+                    </div>
+                    
+                </div>
+                <hr />
+                
+                <div class="ui-grid-a" id="contact_infos">
+                    <div id="map" style="height:40%"></div>
+                    <a href="https://www.google.com/maps/dir/''/L%E2%80%99+Patron+Tacos/data=!4m5!4m4!1m0!1m2!1m1!1s0x880fcd7e10215f69:0xda4613aac9aecc51?sa=X&ved=0ahUKEwjhp5eIx_HMAhVSPVIKHQ8TAWQQ9RcIfjAL" data-role="button" data-icon="maps"> Find us on Google Maps </a>
+                    <input type="button" onclick="capturePhoto();" value="Take Photo"/>
+                    
+                    <input type="button" onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);" value="Upload Photo"/>
+                    <img style="display:none;width:100px;height:100px;" id="smallImage" src="" />
+                    <img src="" id="myImage" height="200px" width="200px"/>
+                </div>
+                
+                <hr />
+            </div>
+        </section>
+    </body>
+</html>

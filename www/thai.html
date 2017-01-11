@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+                
+                <title>Lab 5</title>
+                <link rel="stylesheet" href="css/jquery.mobile-1.4.3.css">
+                    <link rel="stylesheet" href="css/StyleSheet1.css">
+                        <link rel="stylesheet" href="css/jquery.mobile.structure-1.0.1.css" />
+                        <link rel="stylesheet" href="css/custom.css" />
+                        <script src="js/jquery-2.1.1.js"></script>
+                        <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+                        <script src="js/jquery.mobile-1.4.3.js"></script>
+                        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1D8hWUQOjrnj3Z7O6Ja3GbV64LVOajOM"></script>
+                        <script type="text/javascript" charset="utf-8">
+                            
+                            var pictureSource;   // picture source
+                            var destinationType; // sets the format of returned value
+                            
+                            // Wait for device API libraries to load
+                            //
+                            document.addEventListener("deviceready",onDeviceReady,false);
+                            document.addEventListener("deviceready", initializeMap, false);
+                            
+                            
+                            // device APIs are available
+                            //
+                            function onDeviceReady() {
+                                pictureSource=navigator.camera.PictureSourceType;
+                                destinationType=navigator.camera.DestinationType;
+                            }
+                        
+                        // Called when a photo is successfully retrieved
+                        //
+                        function onPhotoDataSuccess(imageData) {
+                            // Uncomment to view the base64-encoded image data
+                            // console.log(imageData);
+                            
+                            // Get image handle
+                            //
+                            var smallImage = document.getElementById('smallImage');
+                            
+                            // Unhide image elements
+                            //
+                            smallImage.style.display = 'block';
+                            
+                            // Show the captured photo
+                            // The in-line CSS rules are used to resize the image
+                            //
+                            smallImage.src = "data:image/jpeg;base64," + imageData;
+                        }
+                        
+                        // Called when a photo is successfully retrieved
+                        //
+                        function onPhotoURISuccess(imageURI) {
+                            // Uncomment to view the image file URI
+                            // console.log(imageURI);
+                            
+                            // Get image handle
+                            //
+                            var largeImage = document.getElementById('largeImage');
+                            
+                            // Unhide image elements
+                            //
+                            largeImage.style.display = 'block';
+                            
+                            // Show the captured photo
+                            // The in-line CSS rules are used to resize the image
+                            //
+                            largeImage.src = imageURI;
+                        }
+                        
+                        // A button will call this function
+                        //
+                        function capturePhoto() {
+                            // Take picture using device camera and retrieve image as base64-encoded string
+                            navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50,
+                                                        destinationType: destinationType.DATA_URL });
+                        }
+                        
+                        // A button will call this function
+                        //
+                        function capturePhotoEdit() {
+                            // Take picture using device camera, allow edit, and retrieve image as base64-encoded string
+                            navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 20, allowEdit: true,
+                                                        destinationType: destinationType.DATA_URL });
+                        }
+                        
+                        // A button will call this function
+                        //
+                        function getPhoto(source) {
+                            // Retrieve image file location from specified source
+                            navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 50,
+                                                        destinationType: destinationType.FILE_URI,
+                                                        sourceType: source });
+                        }
+                        
+                        // Called if something bad happens.
+                        //
+                        function onFail(message) {
+                            alert('Failed because: ' + message);
+                        }
+                        
+                        function initializeMap() {
+                            var mapOptions = {
+                                center: new google.maps.LatLng(43.069452, -89.411373),
+                                zoom: 11,
+                                mapTypeId: google.maps.MapTypeId.ROADMAP
+                            };
+                            var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+                            
+                            
+                            var marker = new google.maps.Marker({
+                                                                position: new google.maps.LatLng(43.069452, -89.411373),
+                                                                map: map,
+                                                                title: "This is a marker!",
+                                                                animation: google.maps.Animation.DROP
+                                                                });
+                        }
+                        </script>
+                        
+                        
+                        
+                        
+                        </head>
+    <body>
+        <div data-role="page"  data-theme="c">
+            <div data-role="header">
+                <a href="#" onclick="window.history.go(-1); return false;" class="ui-btn  ui-btn-icon-left ui-corner-all">Back</a>
+                <h1> Back </h1>
+                
+            </div>
+            <div data-role="content">
+                <div id="sub-head" data-position="fixed">
+                    Find Me food
+                </div>
+                <ul data-role="listview" data-split-theme="a" data-inset="true" data-filter="true">
+                    <li>
+                        <a class="readonly-state" href="#Spice">
+                            <img src="img\indian\img1.jpg">
+                                <h2>Spice Root Modern Indian Cuisine</h2>
+                                <p> <span id="rate"> 4 Star</span> </p>
+                                </a>
+                    </li>
+                    <li>
+                        <a class="readonly-state" href="#Punjabi">
+                            <img src="img\indian\img2.jpg">
+                                <h2>Punjabi Tandoor</h2>
+                                <p> <span id="rate"> 4.5 Star</span> </p>
+                                </a>
+                    </li>
+                    <li>
+                        <a class="readonly-state" href="#Bombay">
+                            <img src="img\indian\img3.jpg">
+                                <h2>Bombay</h2>
+                                <p> <span id="rate"> 4 Star</span> </p>
+                                </a>
+                    </li>
+                    <li>
+                        <a class="readonly-state" href="#Rasika">
+                            <img src="img\indian\img4.jpg">
+                                <h2>Rasika</h2>
+                                <p> <span id="rate"> 4 Star</span> </p>
+                                </a>
+                    </li>
+                    <li>
+                        <a class="readonly-state" href="#Dhaba">
+                            <img src="img\maxican\img5.jpg">
+                                <h2>Dhaba Indian Bistro</h2>
+                                <p> <span id="rate"> 4 Star</span> </p>
+                                </a>
+                    </li>
+                    <li>
+                        <a class="readonly-state" href="#Los">
+                            <img src="img\maxican\img6.jpg">
+                                <h2>Los Guachos Taqueria</h2>
+                                <p> <span id="rate"> 3 Star</span> </p>
+                                </a>
+                    </li>
+                    
+                    <li>
+                        <a class="readonly-state" href="#Tabla">
+                            <img src="img\indian\img6.jpg">
+                                <h2>Tabla </h2>
+                                <p> <span id="rate"> 4.5 Star</span> </p>
+                                </a>
+                    </li>
+                    
+                </ul>
+                
+            </div>
+            
+            <div data-role="footer" class="ui-navbar-custom" data-position="fixed">
+                <div data-role="navbar" class="ui-navbar-custom">
+                    <ul>
+                        <li><a href="#TourList" id="dates" data-icon="custom" style="font-size:inherit">Tour Dates</a></li>
+                        <li>
+                            <a href="#AlbumList" id="albums" class="ui-btn-active ui-state-persist" data-icon="custom" style="font-size:inherit">Albums</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+            
+        </div>
+        
+        <section id="Spice" data-role="page" data-add-back-btn="true">
+            <div data-role="header">
+                <a href="#" onclick="window.history.go(-1); return false;" class="ui-btn  ui-btn-icon-left ui-corner-all">Back</a>
+                <h1> Back </h1>
+                
+            </div>
+            <div data-role="content">
+                <div class="ui-grid-a" id="info">
+                    <div class="ui-block-a">
+                        <p><img src="img\indian\sub-img1.jpg" /></p>
+                        <p><a href="http://www.spiceroot.com/" rel="external" data-role="button"> See our website</a></p>
+                    </div>
+                    <div class="ui-block-b">
+                        <h1> Spice Root Modern Indian Cuisine </h1>
+                        <p><strong>23 Spring St</strong></p>
+                        <p><strong>Williamstown, MA 01267</strong></p>
+                        <p> Open until 8:00 PM </p>
+                        
+                    </div>
+                    
+                </div>
+                <hr />
+                
+                <div class="ui-grid-a" id="contact_infos">
+                    <div class="ui-block-a">
+                        <a href="https://www.google.com/maps/dir/''/Spice+Root+Modern+Indian+Cuisine/data=!4m5!4m4!1m0!1m2!1m1!1s0x89e0ba149a3b92f5:0xa79f80183b6bdc31?sa=X&ved=0ahUKEwiWzri7yPHMAhVNE1IKHZQ7BOgQ9RcIdDAO" data-role="button" data-icon="maps"> Find us on Google Maps </a>
+                        <a href="tel:0388161072" data-role="button" data-icon="tel"> Call us </a>
+                    </div>
+                    <div class="ui-block-b">
+                        <img src="img\maxican\map1.png" />
+                    </div>
+                </div><!-- /grid-a -->
+                <div id="map-page" data-url="map-page">
+                    <div data-role="header" data-theme="a">
+                        <h1>Maps</h1>
+                    </div>
+                    <div role="main" class="ui-content" id="map-canvas">
+                        <!-- map loads here... -->
+                    </div>
+                </div>
+                <hr />
+            </div>
+        </section><!-- /page -->
+        
+        <section id="Punjabi" data-role="page" data-add-back-btn="true">
+            <div data-role="header">
+                <a href="#" onclick="window.history.go(-1); return false;" class="ui-btn  ui-btn-icon-left ui-corner-all">Back</a>
+                <h1> Back </h1>
+                
+            </div>
+            <div data-role="content">
+                <div class="ui-grid-a" id="info">
+                    <div class="ui-block-a">
+                        <p><img src="img\maxican\sub-img2.jpg" /></p>
+                        <p><a href="https://www.chipotle.com/" rel="external" data-role="button"> See our website</a></p>
+                    </div>
+                    <div class="ui-block-b">
+                        <h1> Punjabi Tandoor </h1>
+                        <p><strong>9235 Activity Rd Ste 111</strong></p>
+                        <p><strong>San Diego, CA 92126</strong></p>
+                        <p> Open until 10:00 PM </p>
+                        
+                    </div>
+                    
+                </div>
+                <hr />
+                
+                <div class="ui-grid-a" id="contact_infos">
+                    <div id="map" style="height:40%"></div>
+                    <a href="https://www.google.com/maps/dir/''/punjabi+tandoor+sorrento+valley/data=!4m5!4m4!1m0!1m2!1m1!1s0x80dc0715eace5555:0xb982096ea5e99ebf?sa=X&ved=0ahUKEwig_ZetyPHMAhUSc1IKHVXbCG4Q9RcIhgEwCw" data-role="button" data-icon="maps"> Find us on Google Maps </a>
+                    <input type="button" onclick="capturePhoto();" value="Take Photo"/>
+                    
+                    <input type="button" onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);" value="Upload Photo"/>
+                    <img style="display:none;width:100px;height:100px;" id="smallImage" src="" />
+                    <img src="" id="myImage" height="200px" width="200px"/>
+                </div>
+                
+                <hr />
+            </div>
+        </section>
+        
+        <section id="Bombay" data-role="page" data-add-back-btn="true">
+            <div data-role="header">
+                <a href="#" onclick="window.history.go(-1); return false;" class="ui-btn  ui-btn-icon-left ui-corner-all">Back</a>
+                <h1> Back </h1>
+                
+            </div>
+            <div data-role="content">
+                <div class="ui-grid-a" id="info">
+                    <div class="ui-block-a">
+                        <p><img src="img\indian\sub-img3.jpg" /></p>
+                        <p><a href="http://www.bombayrestaurant.com/" rel="external" data-role="button"> See our website</a></p>
+                    </div>
+                    <div class="ui-block-b">
+                        <h1> Bombay </h1>
+                        <p><strong>3960 5th Ave</strong></p>
+                        <p><strong>San Diego, CA 92103</strong></p>
+                        <p> Open until 10:00 PM </p>
+                        
+                    </div>
+                    
+                </div>
+                <hr />
+                
+                <div class="ui-grid-a" id="contact_infos">
+                    <div id="map" style="height:40%"></div>
+                    <a href="https://www.google.com/maps/dir/''/bombay+san+diego/@32.7493983,-117.2306703,12z/data=!3m1!4b1!4m8!4m7!1m0!1m5!1m1!1s0x80d953583b404cc1:0x431258fe6de690a6!2m2!1d-117.1606301!2d32.7494178" data-role="button" data-icon="maps"> Find us on Google Maps </a>
+                    <input type="button" onclick="capturePhoto();" value="Take Photo"/>
+                    
+                    <input type="button" onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);" value="Upload Photo"/>
+                    <img style="display:none;width:100px;height:100px;" id="smallImage" src="" />
+                    <img src="" id="myImage" height="200px" width="200px"/>
+                </div>
+                
+                <hr />
+            </div>
+        </section>
+        
+        <section id="Rasika" data-role="page" data-add-back-btn="true">
+            <div data-role="header">
+                <a href="#" onclick="window.history.go(-1); return false;" class="ui-btn  ui-btn-icon-left ui-corner-all">Back</a>
+                <h1> Back </h1>
+                
+            </div>
+            <div data-role="content">
+                <div class="ui-grid-a" id="info">
+                    <div class="ui-block-a">
+                        <p><img src="img\indian\sub-img4.jpg" /></p>
+                        <p><a href="http://www.richardsandoval.com/mayany/" rel="external" data-role="button"> See our website</a></p>
+                    </div>
+                    <div class="ui-block-b">
+                        <h1> Rasika </h1>
+                        <p><strong>633 D St NW</strong></p>
+                        <p><strong>Washington, DC 20004</strong></p>
+                        <p> Open until 10:00 PM </p>
+                        
+                    </div>
+                    
+                </div>
+                <hr />
+                <div class="ui-grid-a" id="contact_infos">
+                    <div id="map" style="height:40%"></div>
+                    <a href="https://www.google.com/maps/dir/''/rasika+washington+dc/data=!4m5!4m4!1m0!1m2!1m1!1s0x89b7b78ffacfb825:0x91e25c9382ff7aa6?sa=X&ved=0ahUKEwiMzMWLyPHMAhVcE1IKHb1IACUQ9RcIiwEwCw" data-role="button" data-icon="maps"> Find us on Google Maps </a>
+                    <input type="button" onclick="capturePhoto();" value="Take Photo"/>
+                    
+                    <input type="button" onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);" value="Upload Photo"/>
+                    <img style="display:none;width:100px;height:100px;" id="smallImage" src="" />
+                    <img src="" id="myImage" height="200px" width="200px"/>
+                </div>
+                
+                <hr />
+            </div>
+        </section>
+        
+        <section id="Dhaba" data-role="page" data-add-back-btn="true">
+            <div data-role="header">
+                <a href="#" onclick="window.history.go(-1); return false;" class="ui-btn  ui-btn-icon-left ui-corner-all">Back</a>
+                <h1> Back </h1>
+                
+            </div>
+            <div data-role="content">
+                <div class="ui-grid-a" id="info">
+                    <div class="ui-block-a">
+                        <p><img src="img\indian\sub-img5.jpg" /></p>
+                        <p><a href="http://www.dhabaindianbistro.com" rel="external" data-role="button"> See our website</a></p>
+                    </div>
+                    <div class="ui-block-b">
+                        <h1> Dhaba Indian Bistro </h1>
+                        <p><strong>8333 Greenway Blvd Ste 100</strong></p>
+                        <p><strong>Middleton, WI 53562</strong></p>
+                        <p> Open until 10:00 PM </p>
+                        
+                    </div>
+                    
+                </div>
+                <hr />
+                
+                <div class="ui-grid-a" id="contact_infos">
+                    <div id="map" style="height:40%"></div>
+                    <a href="https://www.google.com/maps/dir/''/dhaba+indian+bistro/data=!4m5!4m4!1m0!1m2!1m1!1s0x8807af36c5e42665:0x172b462d13b4c249?sa=X&ved=0ahUKEwifl4r9x_HMAhUOM1IKHQvCBNEQ9RcIgwEwDA" data-role="button" data-icon="maps"> Find us on Google Maps </a>
+                    <input type="button" onclick="capturePhoto();" value="Take Photo"/>
+                    
+                    <input type="button" onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);" value="Upload Photo"/>
+                    <img style="display:none;width:100px;height:100px;" id="smallImage" src="" />
+                    <img src="" id="myImage" height="200px" width="200px"/>
+                </div>
+                
+                <hr />
+            </div>
+        </section>
+        
+        <section id="Los" data-role="page" data-add-back-btn="true">
+            <div data-role="header">
+                <a href="#" onclick="window.history.go(-1); return false;" class="ui-btn  ui-btn-icon-left ui-corner-all">Back</a>
+                <h1> Back </h1>
+                
+            </div>
+            <div data-role="content">
+                <div class="ui-grid-a" id="info">
+                    <div class="ui-block-a">
+                        <p><img src="img\maxican\sub-img6.jpg" /></p>
+                        <p><a href="los-guachos.com" rel="external" data-role="button"> See our website</a></p>
+                    </div>
+                    <div class="ui-block-b">
+                        <h1> Los Guachos Taqueria </h1>
+                        <p><strong>5221 Godown Rd</strong></p>
+                        <p><strong>Columbus, OH 43235</strong></p>
+                        <p> Open until 10:00 PM </p>
+                        
+                    </div>
+                    
+                </div>
+                <hr />
+                
+                <div class="ui-grid-a" id="contact_infos">
+                    <div id="map" style="height:40%"></div>
+                    <a href="https://www.google.com/maps/dir/''/los+guachos+taqueria+columbus+oh/data=!4m5!4m4!1m0!1m2!1m1!1s0x88388d0b4e1e9f23:0x3d4cd6bbb3ba83f?sa=X&ved=0ahUKEwjZmI7yx_HMAhUME1IKHZbvBjIQ9RcIiQEwCw" data-role="button" data-icon="maps"> Find us on Google Maps </a>
+                    <input type="button" onclick="capturePhoto();" value="Take Photo"/>
+                    
+                    <input type="button" onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);" value="Upload Photo"/>
+                    <img style="display:none;width:100px;height:100px;" id="smallImage" src="" />
+                    <img src="" id="myImage" height="200px" width="200px"/>
+                </div>
+                
+                <hr />
+            </div>
+        </section>
+        
+        <section id="Tabla" data-role="page" data-add-back-btn="true">
+            <div data-role="header">
+                <a href="#" onclick="window.history.go(-1); return false;" class="ui-btn  ui-btn-icon-left ui-corner-all">Back</a>
+                <h1> Back </h1>
+                
+            </div>
+            <div data-role="content">
+                <div class="ui-grid-a" id="info">
+                    <div class="ui-block-a">
+                        <p><img src="img\indian\sub-img6.jpg" /></p>
+                        <p><a href="http://tablaatlanta.com" rel="external" data-role="button"> See our website</a></p>
+                    </div>
+                    <div class="ui-block-b">
+                        <h1> Tabla </h1>
+                        <p><strong>77th 12th St NE Ste 2</strong></p>
+                        <p><strong>Atlanta, GA 30309</strong></p>
+                        <p> Open until 10:00 PM </p>
+                        
+                    </div>
+                    
+                </div>
+                <hr />
+                <div class="ui-grid-a" id="contact_infos">
+                    <div id="map" style="height:40%"></div>
+                    <a href="https://www.google.com/maps/dir/''/tabla+atlanta/data=!4m5!4m4!1m0!1m2!1m1!1s0x88f504433b7f88ff:0xb2f6a16e57c9126d?sa=X&ved=0ahUKEwilysDmx_HMAhVVE1IKHVbiBS0Q9RcIjAEwCw" data-role="button" data-icon="maps"> Find us on Google Maps </a>
+                    <input type="button" onclick="capturePhoto();" value="Take Photo"/>
+                    
+                    <input type="button" onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);" value="Upload Photo"/>
+                    <img style="display:none;width:100px;height:100px;" id="smallImage" src="" />
+                    <img src="" id="myImage" height="200px" width="200px"/>
+                </div>
+                
+                <hr />
+            </div>
+        </section>
+    </body>
+</html>
